@@ -1,6 +1,7 @@
 /* INCLUDES */
 #include <stdio.h>
 #include <stdlib.h>
+#include "printer.h"
 
 
 /* PROTOTYPES */
@@ -12,30 +13,9 @@ int main(void) {
   int opt, err = 0;;
 
   do {
-    // Clear screen
     clear_screen();
-
-    // Print title 
-    printf("\n");
-    printf("\t █████╗ ██╗      ██████╗  ██████╗ ███████╗████████╗██████╗ ██╗   ██╗ ██████╗████████╗\n");
-    printf("\t██╔══██╗██║     ██╔════╝ ██╔═══██╗██╔════╝╚══██╔══╝██╔══██╗██║   ██║██╔════╝╚══██╔══╝\n");
-    printf("\t███████║██║     ██║  ███╗██║   ██║███████╗   ██║   ██████╔╝██║   ██║██║        ██║\n");
-    printf("\t██╔══██║██║     ██║   ██║██║   ██║╚════██║   ██║   ██╔══██╗██║   ██║██║        ██║\n");   
-    printf("\t██║  ██║███████╗╚██████╔╝╚██████╔╝███████║   ██║   ██║  ██║╚██████╔╝╚██████╗   ██║\n");
-    printf("\t╚═╝  ╚═╝╚══════╝ ╚═════╝  ╚═════╝ ╚══════╝   ╚═╝   ╚═╝  ╚═╝ ╚═════╝  ╚═════╝   ╚═╝\n"); 
-
-    // Print menu
-    printf("\n");
-    printf("\t*****************************\n");
-    printf("\t* What do you want to view? *\n");
-    printf("\t* (1) Algorithms            *\n");
-    printf("\t* (2) Data Structures       *\n");
-    printf("\t* (3) Exit                  *\n");
-    printf("\t*****************************\n");
-    if (err == 1) {
-      printf("\t*       Invalid Input       *\n");
-      printf("\t*****************************\n");
-    }
+    print_app_title();
+    print_main_menu(err);
 
     // Get user input
     printf("\t$ ");
@@ -56,7 +36,7 @@ int main(void) {
         err = 1;
     }
 
-    // Clear buffer
+    // Clear buffer fix: #1
     while(getchar() != '\n');
 
   } while (opt != 3);
