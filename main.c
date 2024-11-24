@@ -1,13 +1,15 @@
-#include <stdio.h>
+/* INCLUDES */
 #include "menuopts.h"
 
-int main(void) {
-  dict test;
-  test.index = 1;
-  test.option = "Hello";
 
-  printf("%d\n", test.index);
-  printf("%s\n", test.option);
+/* ENTRY */
+int main(void) {
+  // TODO: Create function for dynamic menu display
+    // TODO: Allocate memory for menu.dicts property
+    // TODO: Assign values menu(id, *title, dict(index, *option))
+    // TODO: Print menu
+
+  // Maybe data can be extractef from a CSV file
 
   return 0;
 }
