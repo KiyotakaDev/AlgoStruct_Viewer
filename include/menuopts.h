@@ -10,8 +10,10 @@ typedef struct {
 typedef struct {
   int id;
   char *title;
-  dict *options[];
+  dict **options; // <- From *options[]
 } menu;
 
+/* PROTOTYPES */
+void print_app_title(void);
 
 #endif // !MENUOPTS_H  
