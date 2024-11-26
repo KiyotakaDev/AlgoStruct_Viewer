@@ -23,6 +23,7 @@ int main(void) {
   print_app_title();
 
   // Pre-dynamic render
+  /*
   menu *new_menu = malloc(sizeof(menu));
   new_menu->id = 0;
   new_menu->title = "\tWhat you want to view?";
@@ -57,6 +58,17 @@ int main(void) {
   free(new_menu->options);
   free(new_menu);
   new_menu = NULL;
+  */
+
+  // Testing function implementation
+  menu *main_menu = create_menu(0, "What do you want to view?", MENU_OPTS);
+
+  // Printing
+  printf("\t%s  id:%d\n", main_menu->title, main_menu->id);
+
+  // Free memory
+  free_memory(main_menu);
+
   return 0;
 }
 
