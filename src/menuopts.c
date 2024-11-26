@@ -20,6 +20,7 @@ menu *create_menu(int menu_id, const char *title, int opts_num) {
   // Assigning values
   new_menu->id = menu_id;
   new_menu->title = (char *)title;
+  new_menu->opts_num = opts_num;
   
   // Allocating memory for options (dict *)pointer size
   new_menu->options = malloc(opts_num * sizeof(dict *));
@@ -27,8 +28,21 @@ menu *create_menu(int menu_id, const char *title, int opts_num) {
   return new_menu;
 }
 
-void free_memory(menu *menu_ref, int opts_num) {
-  for (int i = 0; i < opts_num; i++) {
+void add_option(menu *menu_ref, int opt_index, const char *option, void (*action)(void)) {
+  if (opt_index < 0 || opt_index > menu_ref->opts_num) {
+    printf("\tInvalid index size\n");
+    return;
+  }
+
+  menu_ref->options[opt_index] = malloc(sizeof(dict));
+  menu_ref->options[opt_index]->index = opt_index;
+  menu_ref->options[opt_index]->option = (char *)option;
+  menu_ref->options[opt_index]->action = action;
+}
+
+void free_memory(menu *menu_ref) {
+  int size = menu_ref->opts_num;
+  for (int i = 0; i < size; i++) {
     if (menu_ref->options[0] != NULL)
       free(menu_ref->options[i]);
   }
