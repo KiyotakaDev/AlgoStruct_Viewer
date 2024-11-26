@@ -15,6 +15,8 @@ void say_som(void);
 int main(void) {
   // TODO: [ ] create function for dynamic menu display
 
+  int u_opt = -1;
+
   // Static
   clear_screen();
   print_app_title();
@@ -24,12 +26,30 @@ int main(void) {
   // Assigning options to main_menu
   add_option(main_menu, 1, "Algorithms", say_som);
   add_option(main_menu, 2, "Data Structures", say_som);
-  add_option(main_menu, 0, "Exit", say_som);
+  add_option(main_menu, 0, "Exit", NULL);
 
   // Printing
   printf("\t%s  id:%d\n", main_menu->title, main_menu->id);
   for (int i = 0; i < MAIN_OPTS; i++) {
     printf("\t(%d). %s\n", main_menu->options[i]->index, main_menu->options[i]->option);
+  }
+
+  printf("\t$ ");
+  scanf("%d", &u_opt);
+
+  switch (u_opt) {
+    case 0:
+      printf("\tExiting program... Godbye!\n\n");
+      break;
+    case 1:
+      main_menu->options[1]->action();
+      break;
+    case 2:
+      main_menu->options[2]->action();
+      break;
+    default:
+      printf("\tPlease select a valid option...\n");
+      break;
   }
 
   // Free memory
