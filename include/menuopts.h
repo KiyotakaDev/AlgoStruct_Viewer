@@ -11,12 +11,14 @@ typedef struct {
 typedef struct {
   int id;
   char *title;
-  dict **options;        // <- From *options[]
+  dict **options; // <- From *options[]
+  int opts_num;
 } menu;
 
 /* PROTOTYPES */
 void print_app_title(void);
 menu *create_menu(int menu_id, const char *title, int opts_num);
-void free_memory(menu *menu_ref, int opts_num);
+void add_option(menu *menu_ref, int opt_index, const char *option, void (*action)(void));
+void free_memory(menu *menu_ref);
 
 #endif // !MENUOPTS_H  
