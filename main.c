@@ -4,7 +4,7 @@
 #include "menuopts.h"
 
 /* DEFINES */
-#define MENU_OPTS 3
+#define MAIN_OPTS 3
 
 /* PROTOTYPE */
 void clear_screen(void);
@@ -48,9 +48,7 @@ int main(void) {
   for (int i = 0; i < MENU_OPTS; i++) {
     printf("\t(%d). %s\n", new_menu->options[i]->index, new_menu->options[i]->option);
   }
-  new_menu->action();
-  printf("\n");
-
+  new_menu->action(); printf("\n");
   for (int i = 0; i < MENU_OPTS; i++) {
     if (new_menu->options[i] != NULL)
       free(new_menu->options[i]);
@@ -61,13 +59,33 @@ int main(void) {
   */
 
   // Testing function implementation
-  menu *main_menu = create_menu(0, "What do you want to view?", MENU_OPTS);
+  menu *main_menu = create_menu(0, "What do you want to view?", MAIN_OPTS);
+  // TODO: Implement function to add_option
+  main_menu->options[0] = malloc(sizeof(dict));
+  main_menu->options[1] = malloc(sizeof(dict));
+  main_menu->options[2] = malloc(sizeof(dict));
+
+  // Assigning values
+  main_menu->options[0]->index = 1;
+  main_menu->options[0]->option = "Algorithms";
+  main_menu->options[0]->action = say_som;
+
+  main_menu->options[1]->index = 2;
+  main_menu->options[1]->option = "Data Structure";
+  main_menu->options[1]->action = say_som;
+
+  main_menu->options[2]->index = 0;
+  main_menu->options[2]->option = "Exit";
+  main_menu->options[2]->action = say_som;
 
   // Printing
   printf("\t%s  id:%d\n", main_menu->title, main_menu->id);
+  for (int i = 0; i < MAIN_OPTS; i++) {
+    printf("\t(%d). %s\n", main_menu->options[i]->index, main_menu->options[i]->option);
+  }
 
   // Free memory
-  free_memory(main_menu);
+  free_memory(main_menu, MAIN_OPTS);
 
   return 0;
 }
