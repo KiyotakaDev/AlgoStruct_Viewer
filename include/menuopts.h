@@ -10,7 +10,8 @@ typedef struct {
 typedef struct {
   int id;
   char *title;
-  dict **options; // <- From *options[]
+  dict **options;        // <- From *options[]
+  void (*action)(void);  // Function pointer to an action
 } menu;
 
 /* PROTOTYPES */
