@@ -8,6 +8,7 @@
 
 /* PROTOTYPE */
 void clear_screen(void);
+void say_som(void);
 
 
 /* ENTRY */
@@ -16,8 +17,6 @@ int main(void) {
     // TODO: [x] Allocate memory for menu.dicts property
     // TODO: [x] Assign values menu(id, *title, dict(index, *option))
     // TODO: [x] Print menu
-
-   // Maybe data can be extractef from a CSV file
 
   // Static
   clear_screen();
@@ -35,6 +34,7 @@ int main(void) {
   // Assigning an option
   new_menu->options[0]->index = 1;
   new_menu->options[0]->option = "Algorithms";
+  new_menu->action = say_som;
 
   new_menu->options[1]->index = 2;
   new_menu->options[1]->option = "Data Structures";
@@ -47,6 +47,7 @@ int main(void) {
   for (int i = 0; i < MENU_OPTS; i++) {
     printf("\t(%d). %s\n", new_menu->options[i]->index, new_menu->options[i]->option);
   }
+  new_menu->action();
   printf("\n");
 
   for (int i = 0; i < MENU_OPTS; i++) {
@@ -56,7 +57,6 @@ int main(void) {
   free(new_menu->options);
   free(new_menu);
   new_menu = NULL;
-
   return 0;
 }
 
@@ -68,4 +68,8 @@ void clear_screen(void) {
   #else
     system("clear");
   #endif
+}
+
+void say_som(void) {
+  printf("\tUsing struct function :D\n");
 }
