@@ -60,23 +60,10 @@ int main(void) {
 
   // Testing function implementation
   menu *main_menu = create_menu(0, "What do you want to view?", MAIN_OPTS);
-  // TODO: Implement function to add_option
-  main_menu->options[0] = malloc(sizeof(dict));
-  main_menu->options[1] = malloc(sizeof(dict));
-  main_menu->options[2] = malloc(sizeof(dict));
-
-  // Assigning values
-  main_menu->options[0]->index = 1;
-  main_menu->options[0]->option = "Algorithms";
-  main_menu->options[0]->action = say_som;
-
-  main_menu->options[1]->index = 2;
-  main_menu->options[1]->option = "Data Structure";
-  main_menu->options[1]->action = say_som;
-
-  main_menu->options[2]->index = 0;
-  main_menu->options[2]->option = "Exit";
-  main_menu->options[2]->action = say_som;
+  // Using function to add_option
+  add_option(main_menu, 1, "Algorithms", say_som);
+  add_option(main_menu, 2, "Data Structures", say_som);
+  add_option(main_menu, 0, "Exit", say_som);
 
   // Printing
   printf("\t%s  id:%d\n", main_menu->title, main_menu->id);
@@ -85,7 +72,7 @@ int main(void) {
   }
 
   // Free memory
-  free_memory(main_menu, MAIN_OPTS);
+  free_memory(main_menu);
 
   return 0;
 }
