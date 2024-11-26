@@ -17,6 +17,6 @@ typedef struct {
 /* PROTOTYPES */
 void print_app_title(void);
 menu *create_menu(int menu_id, const char *title, int opts_num);
-void free_memory(menu *menu_ref);
+void free_memory(menu *menu_ref, int opts_num);
 
 #endif // !MENUOPTS_H  

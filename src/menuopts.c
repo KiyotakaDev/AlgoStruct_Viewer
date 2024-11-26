@@ -22,13 +22,17 @@ menu *create_menu(int menu_id, const char *title, int opts_num) {
   new_menu->title = (char *)title;
   
   // Allocating memory for options (dict *)pointer size
-  // new_menu->options = malloc(opts_num * sizeof(dict *));
+  new_menu->options = malloc(opts_num * sizeof(dict *));
 
   return new_menu;
 }
 
-void free_memory(menu *menu) {
-  // free(menu->options);
-  free(menu);
-  menu = NULL;
+void free_memory(menu *menu_ref, int opts_num) {
+  for (int i = 0; i < opts_num; i++) {
+    if (menu_ref->options[0] != NULL)
+      free(menu_ref->options[i]);
+  }
+  free(menu_ref->options);
+  free(menu_ref);
+  menu_ref = NULL;
 }
