@@ -5,18 +5,18 @@
 typedef struct {
   int index;
   char *option;
+  void (*action)(void);  // Function pointer to an action
 } dict; // Created for key pair value
 
 typedef struct {
   int id;
   char *title;
   dict **options;        // <- From *options[]
-  void (*action)(void);  // Function pointer to an action
 } menu;
 
 /* PROTOTYPES */
 void print_app_title(void);
 menu *create_menu(int menu_id, const char *title, int opts_num);
-void free_memory(menu *menu);
+void free_memory(menu *menu_ref);
 
 #endif // !MENUOPTS_H  
