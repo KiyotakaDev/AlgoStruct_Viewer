@@ -22,6 +22,11 @@ menu *create_algorithms_menu(void) {
   return _menu;
 }
 
+menu *error_menu_handler(void) {
+  menu *_menu = create_menu(-1, "Error! This menu does not exist...", 0);
+  return _menu;
+}
+
 menu *menu_to_render(int menu_id) {
   switch (menu_id) {
     case 0:
@@ -29,7 +34,6 @@ menu *menu_to_render(int menu_id) {
     case 1:
       return create_algorithms_menu();
     default:
-      printf("\tThis menu does not exist | Invalid menu...");
-      return NULL;
+      return error_menu_handler();
   } 
 }

@@ -10,6 +10,7 @@
 /* PROTOTYPES */
 menu *create_main_menu(void);
 menu *create_algorithms_menu(void);
+menu *error_menu_handler(void);
 menu *menu_to_render(int menu_id);
 
 #endif // !MENUS_H  

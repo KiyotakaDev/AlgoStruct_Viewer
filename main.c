@@ -10,7 +10,7 @@ void clear_screen(void);
 
 /* ENTRY */
 int main(void) {
-  int u_opt = 1;
+  int u_opt = 2;
 
   // TODO: [x] create function for dynamic menu display
 
@@ -23,6 +23,11 @@ int main(void) {
 
   // Printer
   printf("\t%s\n", renderer->title);
+  if (renderer->id == -1) {
+    free(renderer->options);
+    free(renderer);
+    exit(1);
+  }
 
   // Free memory
   free_memory(renderer);
