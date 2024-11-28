@@ -28,7 +28,7 @@ menu *create_menu(int menu_id, const char *title, int opts_num) {
   return new_menu;
 }
 
-void add_option(menu *menu_ref, int opt_index, const char *option, void (*action)(void)) {
+void add_option(menu *menu_ref, int opt_index, const char *option, void (*action)(int *menu_id)) {
   if (opt_index < 0 || opt_index > menu_ref->opts_num) {
     printf("\tInvalid index size\n");
     return;

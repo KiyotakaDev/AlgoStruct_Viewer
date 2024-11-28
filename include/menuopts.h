@@ -5,7 +5,7 @@
 typedef struct {
   int index;
   char *option;
-  void (*action)(void);  // Function pointer to an action
+  void (*action)(int *menu_id);  // Function pointer to an action | Parameter by reference
 } dict; // Created for key pair value
 
 typedef struct {
@@ -18,7 +18,7 @@ typedef struct {
 /* PROTOTYPES */
 void print_app_title(void);
 menu *create_menu(int menu_id, const char *title, int opts_num);
-void add_option(menu *menu_ref, int opt_index, const char *option, void (*action)(void));
+void add_option(menu *menu_ref, int opt_index, const char *option, void (*action)(int *menu_id));
 void free_memory(menu *menu_ref);
 
 #endif // !MENUOPTS_H  
