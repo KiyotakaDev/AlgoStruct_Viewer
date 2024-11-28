@@ -3,6 +3,6 @@
 
 /* PROTOTYPES */
 void clear_terminal(void);
-void app_renderer(int it_to_render);
+void app_renderer(int *current_menu, int *u_opt);
 
 #endif // !APPRENDERER_H
