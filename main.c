@@ -12,8 +12,6 @@ void clear_screen(void);
 int main(void) {
   int u_opt = 2;
 
-  // TODO: [x] create function for dynamic menu display
-
   // Static
   clear_screen();
   print_app_title();
