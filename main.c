@@ -5,14 +5,18 @@
 
 /* ENTRY */
 int main(void) {
-  int u_opt = 0;
+  int current_menu = 0, u_opt = 0;
 
-  // Static
-  clear_terminal();
-  print_app_title();
+  do {
 
-  // Dynamic render
-  app_renderer(u_opt); 
+    // Static
+    clear_terminal();
+    print_app_title();
+
+    // Dynamic render
+    app_renderer(&current_menu, &u_opt); 
+
+  } while (u_opt != 0);
 
   return 0;
 }
