@@ -12,9 +12,12 @@ void clear_terminal(void) {
   #endif
 }
 
-void app_renderer(int id_to_render) {
+void app_renderer(int *current_menu, int *u_opt) {
+  // Variable
+  int found = 0;
+
   // Select menu
-  menu *renderer = menu_to_render(id_to_render);
+  menu *renderer = menu_to_render(*current_menu);
 
   // Print menu
   printf("\t%s\n", renderer->title);
@@ -25,7 +28,28 @@ void app_renderer(int id_to_render) {
   } else {
     free(renderer->options);
     free(renderer);
+    exit(0);
   }
+
+  // Get user input
+  printf("\t$ ");
+  scanf("%d", u_opt);
+
+  // Search option and execute its action
+  for (int i = 0; i < renderer->opts_num; i++) {
+    if (renderer->options[i]->index == *u_opt) {
+      found = 1;
+      if (renderer->options[i]->action) {
+        renderer->options[i]->action();
+      } else {
+        printf("\tNo action defined for this option.\n");
+      }
+      break;
+    }
+  }
+
+  if (!found)
+    printf("\tInvalid option, try again...\n");
 
   free_memory(renderer);
 }
