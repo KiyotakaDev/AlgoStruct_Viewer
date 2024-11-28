@@ -1,12 +1,13 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include "menus.h"
+#include <stdlib.h>    // NULL
+#include "appfuncs.h"  // Funcs exit_app
+#include "menuopts.h"  // Struct menu | Funcs create_menu, add_option
+#include "menus.h"     // Header prototypes
 
 menu *create_main_menu(void) {
   menu *_menu = create_menu(0, "What do you want to view?", MAIN_OPTS);
   add_option(_menu, 1, "Algorithms", NULL);
   add_option(_menu, 2, "Data Structures", NULL);
-  add_option(_menu, 0, "Exit", NULL);
+  add_option(_menu, 0, "Exit", exit_app);
   
   return _menu;
 }
