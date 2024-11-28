@@ -40,16 +40,19 @@ void app_renderer(int *current_menu, int *u_opt) {
     if (renderer->options[i]->index == *u_opt) {
       found = 1;
       if (renderer->options[i]->action) {
-        renderer->options[i]->action();
+        renderer->options[i]->action(current_menu);
       } else {
         printf("\tNo action defined for this option.\n");
       }
-      break;
+//      break;
     }
   }
 
-  if (!found)
-    printf("\tInvalid option, try again...\n");
+ // if (!found)
+  //  printf("\tInvalid option, try again...\n");
+  //
+  // Clear input buffer
+  while(getchar() != '\n');
 
   free_memory(renderer);
 }
