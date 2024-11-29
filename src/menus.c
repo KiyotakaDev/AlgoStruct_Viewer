@@ -5,7 +5,7 @@
 
 menu *create_main_menu(void) {
   menu *_menu = create_menu(0, "What do you want to view?", MAIN_OPTS);
-  add_option(_menu, 1, "Algorithms", NULL);
+  add_option(_menu, 1, "Algorithms", goto_algorithms);
   add_option(_menu, 2, "Data Structures", NULL);
   add_option(_menu, 0, "Exit", exit_app);
   
@@ -18,7 +18,7 @@ menu *create_algorithms_menu(void) {
   add_option(_menu, 2, "Selection Sort", NULL);
   add_option(_menu, 3, "Merge Sort", NULL);
   add_option(_menu, 4, "Back", NULL);
-  add_option(_menu, 0, "Exit", NULL);
+  add_option(_menu, 0, "Exit", exit_app);
 
   return _menu;
 }
