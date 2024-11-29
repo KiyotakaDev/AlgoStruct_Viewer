@@ -4,6 +4,8 @@
 #include "menuopts.h"     // Struct menu | Func free_memory
 #include "menus.h"        // Func menu_to_render 
 
+#define ERROR_NUM = -1
+
 void clear_terminal(void) {
   #ifdef _WIN32
     system("cls");
@@ -21,7 +23,7 @@ void app_renderer(int *current_menu, int *u_opt) {
 
   // Print menu
   printf("\t%s\n", renderer->title);
-  if (renderer->id != 1) {
+  if (renderer->id != ERROR_NUM) {
     for (int i = 0; i < renderer->opts_num; i++) {
       printf("\t(%d). %s\n", renderer->options[i]->index, renderer->options[i]->option);
     } 
