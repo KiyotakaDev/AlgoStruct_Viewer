@@ -1,3 +1,4 @@
+#include <signal.h>       // Func signal | Type SIGINT
 #include <stdio.h>        // Func printf
 #include <stdlib.h>       // Func free
 #include "apprenderer.h"  // Header prototypes
@@ -5,6 +6,9 @@
 #include "menus.h"        // Func menu_to_render 
 
 #define ERROR_NUM -1
+
+// Global variable
+menu *renderer = NULL;
 
 void clear_terminal(void) {
   #ifdef _WIN32
@@ -14,12 +18,20 @@ void clear_terminal(void) {
   #endif
 }
 
-void app_renderer(int *current_menu, int *u_opt) {
-  // Variable
-  int found = 0;
+void handle_exit(int signo) {
+  if (signo == SIGINT) {
+    printf("\n\tExiting program... Goodbye!\n\n");
+    free_memory(renderer);
+    exit(0);
+  }
+}
 
+void app_renderer(int *current_menu, int *u_opt) {
   // Select menu
-  menu *renderer = menu_to_render(*current_menu);
+  renderer = menu_to_render(*current_menu);
+
+  // Detec CTRL+C
+  signal(SIGINT, handle_exit);
 
   // Print menu
   printf("\t%s\n", renderer->title);
@@ -40,19 +52,15 @@ void app_renderer(int *current_menu, int *u_opt) {
   // Search option and execute its action
   for (int i = 0; i < renderer->opts_num; i++) {
     if (renderer->options[i]->index == *u_opt) {
-      found = 1;
       if (renderer->options[i]->action) {
         renderer->options[i]->action(current_menu);
       } else {
         printf("\tNo action defined for this option.\n");
       }
-//      break;
+      break; // Exit loop when option action is found
     }
   }
 
- // if (!found)
-  //  printf("\tInvalid option, try again...\n");
-  //
   // Clear input buffer
   while(getchar() != '\n');
 
