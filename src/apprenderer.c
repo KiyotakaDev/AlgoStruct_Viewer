@@ -4,7 +4,7 @@
 #include "menuopts.h"     // Struct menu | Func free_memory
 #include "menus.h"        // Func menu_to_render 
 
-#define ERROR_NUM = -1
+#define ERROR_NUM -1
 
 void clear_terminal(void) {
   #ifdef _WIN32
