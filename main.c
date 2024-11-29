@@ -6,6 +6,7 @@
 /* ENTRY */
 int main(void) {
   int current_menu = 0, u_opt = 0;
+  // God
 
   do {
 
