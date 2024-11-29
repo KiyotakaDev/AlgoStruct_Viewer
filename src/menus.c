@@ -23,6 +23,18 @@ menu *create_algorithms_menu(void) {
   return _menu;
 }
 
+menu *create_datastructs_menu(void) {
+  menu *_menu = create_menu(2, "Data Structures", DATASTRUCTS_OPTS);
+  add_option(_menu, 1, "Linked Lists", NULL);
+  add_option(_menu, 2, "Trees", NULL);
+  add_option(_menu, 3, "Dictionaries", NULL);
+  add_option(_menu, 4, "Hash Tables", NULL);
+  add_option(_menu, 5, "Back", go_back);
+  add_option(_menu, 0, "Exit", exit_app);
+
+  return _menu;
+}
+
 menu *error_menu_handler(void) {
   menu *_menu = create_menu(-1, "Error! This menu does not exist...", 0);
   return _menu;
