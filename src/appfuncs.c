@@ -5,6 +5,10 @@ void goto_algorithms(int *menu_id) {
   *menu_id = 1;
 }
 
+void goto_datastructs(int *menu_id) {
+  *menu_id = 2;
+}
+
 void go_back(int *menu_id) {
   *menu_id -= 1;
 }
