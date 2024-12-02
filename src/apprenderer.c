@@ -36,9 +36,11 @@ void app_renderer(int *current_menu, int *u_opt) {
   // Print menu
   printf("\t%s\n", renderer->title);
   if (renderer->id != ERROR_NUM) {
-    for (int i = 0; i < renderer->opts_num; i++) {
+    for (int i = 1; i < renderer->opts_num; i++) {
       printf("\t(%d). %s\n", renderer->options[i]->index, renderer->options[i]->option);
-    } 
+    }
+    // Print exit at last
+    printf("\t(%d). %s\n", renderer->options[0]->index, renderer->options[0]->option);
   } else {
     free(renderer->options);
     free(renderer);
