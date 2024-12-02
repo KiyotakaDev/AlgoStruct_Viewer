@@ -1,7 +1,6 @@
 #include <stdio.h>        // Func printf
 #include <unistd.h>       // Func usleep
 #include "algorithms.h"   // Header prototypes
-#include "ansi.h"         // ANSI color formats
 #include "apprenderer.h"  // Clear terminal
 #include "menuopts.h"     // Print title
 
@@ -11,7 +10,6 @@
 static void full_clear(void);
 static void wait_char(void);
 static void show_graph(int current, int sorted_up_to);
-static void colorize(int i, int c, int suo);
 static void swap(int *a, int *b);
 
 // File variables
@@ -84,17 +82,6 @@ static void show_graph(int current, int sorted_up_to) {
   }
 
   printf(RESET);
-}
-
-// TODO: FIX colorize [x] detect if arr is ordered
-static void colorize(int i, int c, int suo) {
-    if (i == c) {
-      printf(CYAN);
-    } else if (i <= suo) {
-      printf(RED);
-    } else {
-      printf(GREEN);
-    }
 }
 
 static void swap(int *a, int *b) {
