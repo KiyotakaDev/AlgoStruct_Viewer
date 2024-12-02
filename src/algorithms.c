@@ -16,7 +16,24 @@ static int arr_size = sizeof(cols_h) / sizeof(cols_h[0]);
 
 
 void exec_bubble_sort(int *_) {
-  show_graph();
+  // Iterate through every column
+  for (int i = 0; i < arr_size - 1; i++) {
+    // Checks if column is ordered avoids re-checks with - i - 1
+    for (int j = 0; j < arr_size - i - 1; j++) {
+      // Print graph
+      show_graph();
+
+      if (cols_h[j] > cols_h[j + 1]) {
+        // Bubble sort
+        int temp = cols_h[j];
+        cols_h[j] = cols_h[j + 1];
+        cols_h[j + 1] = temp;
+      }
+
+      usleep(250000); // 0.25 seg
+    }
+  }
+
   wait_char();
 }
 
