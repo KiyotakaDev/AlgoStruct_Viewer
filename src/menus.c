@@ -1,7 +1,8 @@
-#include <stdlib.h>    // NULL
-#include "appfuncs.h"  // Funcs exit_app
-#include "menuopts.h"  // Struct menu | Funcs create_menu, add_option
-#include "menus.h"     // Header prototypes
+#include <stdlib.h>      // NULL
+#include "algorithms.h"  // App algorithms
+#include "appfuncs.h"    // Funcs exit_app
+#include "menuopts.h"    // Struct menu | Funcs create_menu, add_option
+#include "menus.h"       // Header prototypes
 
 menu *create_main_menu(void) {
   menu *_menu = create_menu(0, "What do you want to view?", MAIN_OPTS);
@@ -14,7 +15,7 @@ menu *create_main_menu(void) {
 
 menu *create_algorithms_menu(void) {
   menu *_menu = create_menu(1, "Algorithms", ALGO_OPTS);
-  add_option(_menu, 1, "Bubble Sort", NULL);
+  add_option(_menu, 1, "Bubble Sort", exec_bubble_sort);
   add_option(_menu, 2, "Selection Sort", NULL);
   add_option(_menu, 3, "Merge Sort", NULL);
   add_option(_menu, 4, "Back", go_back);
