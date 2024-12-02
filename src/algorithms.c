@@ -22,16 +22,22 @@ static int arr_size = sizeof(cols_h) / sizeof(cols_h[0]);
 void exec_bubble_sort(int *_) {
   // Iterate through every column
   for (int i = 0; i < arr_size - 1; i++) {
+    int swaped = 0;
     // Checks if column is ordered avoids re-checks with - i - 1
     for (int j = 0; j < arr_size - i - 1; j++) {
       // Print graph
       show_graph(j, arr_size - i - 1);
 
-      if (cols_h[j] > cols_h[j + 1])
+      if (cols_h[j] > cols_h[j + 1]) {
         swap(&cols_h[j], &cols_h[j + 1]);
+        swaped = 1;
+      }
 
       usleep(SORT_DELAY); // 0.32 seg
     }
+
+    if (!swaped)
+      break;
   }
 
   wait_char();
@@ -80,7 +86,7 @@ static void show_graph(int current, int sorted_up_to) {
   printf(RESET);
 }
 
-// TODO: FIX colorize and detect if arr is ordered
+// TODO: FIX colorize [x] detect if arr is ordered
 static void colorize(int i, int c, int suo) {
     if (i == c) {
       printf(CYAN);
