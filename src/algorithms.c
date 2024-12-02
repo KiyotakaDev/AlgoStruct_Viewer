@@ -19,12 +19,12 @@ static int arr_size = sizeof(cols_h) / sizeof(cols_h[0]);
 
 void exec_bubble_sort(int *_) {
   // Iterate through every column
-  for (int i = 0; i < arr_size - 1; i++) {
+  for (int i = 0; i < arr_size; i++) {
     int swaped = 0;
     // Checks if column is ordered avoids re-checks with - i - 1
-    for (int j = 0; j < arr_size - i - 1; j++) {
+    for (int j = 0; j < arr_size - i; j++) {
       // Print graph
-      show_graph(j, arr_size - i - 1);
+      show_graph(j, arr_size - i);
 
       if (cols_h[j] > cols_h[j + 1]) {
         swap(&cols_h[j], &cols_h[j + 1]);
@@ -62,7 +62,6 @@ static void show_graph(int current, int sorted_up_to) {
   for (int i = 0; i < arr_size; i++) {
     // colorize(i, current, sorted_up_to);
     printf("%d  ", cols_h[i]);
-    printf(RESET);
   }
   printf("\n\n");
 
@@ -78,10 +77,8 @@ static void show_graph(int current, int sorted_up_to) {
     }
   
     // Reset format
-    printf("%s\n", RESET);
+    printf("\n");
   }
-
-  printf(RESET);
 }
 
 static void swap(int *a, int *b) {
