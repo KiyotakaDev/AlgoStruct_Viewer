@@ -9,22 +9,26 @@
 // File prototypes
 static void full_clear(void);
 static void wait_char(void);
-static void show_graph(char *text, int current, int sorted_up_to);
+static void show_graph(char *text, int *arr, int current, int sorted_up_to);
 static void swap(int *a, int *b);
+static void copy_arr(int *copy);
 
 // File variables
-static int cols_h[] = {9, 6, 4, 8, 2, 7, 1, 5, 3};
-static int arr_size = sizeof(cols_h) / sizeof(cols_h[0]);
+static int cols_h_orig[] = {9, 6, 4, 8, 2, 7, 1, 5, 3};
+static int arr_size = sizeof(cols_h_orig) / sizeof(cols_h_orig[0]);
 
 
 void exec_bubble_sort(int *_) {
+  int cols_h[arr_size];
+  copy_arr(cols_h);
+
   // Iterate through every column
   for (int i = 0; i < arr_size; i++) {
     int swaped = 0;
     // Checks if column is ordered avoids re-checks with - i - 1
     for (int j = 0; j < arr_size - i; j++) {
       // Print graph
-      show_graph("Bubble Sort", j, arr_size - i);
+      show_graph("Bubble Sort", cols_h, j, arr_size - i);
 
       if (cols_h[j] > cols_h[j + 1]) {
         swap(&cols_h[j], &cols_h[j + 1]);
@@ -42,13 +46,16 @@ void exec_bubble_sort(int *_) {
 }
 
 void exec_selection_sort(int *_) {
+  int cols_h[arr_size];
+  copy_arr(cols_h);
+
   // Iterate through every element
   for (int i = 0; i < arr_size; i++) {
     int max_index = i;
     
     // Iterate through unsorted
     for (int j = i; j < arr_size; j++) {
-      show_graph("Selection Sort", j, arr_size - i);
+      show_graph("Selection Sort", cols_h, j, arr_size - i);
 
       if (cols_h[j] < cols_h[max_index]) {
         max_index = j;
@@ -76,13 +83,13 @@ static void wait_char(void) {
   getchar();
 }
 
-static void show_graph(char *text, int current, int sorted_up_to) {
+static void show_graph(char *text, int *arr, int current, int sorted_up_to) {
   full_clear();
   printf("\n\t%s\n\n", text);
   // Print numbers
   printf("\t");
   for (int i = 0; i < arr_size; i++) {
-    printf("%d  ", cols_h[i]);
+    printf("%d  ", arr[i]);
   }
   printf("\n\n");
 
@@ -90,7 +97,7 @@ static void show_graph(char *text, int current, int sorted_up_to) {
   for (int i = 0; i < arr_size; i++) {
     printf("\t");
     // Print symbol
-    for (int j = 0; j < cols_h[i]; j++) {
+    for (int j = 0; j < arr[i]; j++) {
       printf("#");
     }
     printf("\n");
@@ -101,4 +108,9 @@ static void swap(int *a, int *b) {
   int temp = *a;
   *a = *b;
   *b = temp;
+}
+
+static void copy_arr(int *copy) {
+  for (int i = 0; i < arr_size; i++)
+    copy[i] = cols_h_orig[i];
 }
