@@ -71,6 +71,14 @@ void exec_selection_sort(int *_) {
   wait_char();
 }
 
+void exec_merge_sort(int *_) {
+  int cols_h[arr_size];
+  copy_arr(cols_h);
+
+  show_graph("Merge Sort", cols_h, -1, -1);
+
+  wait_char();
+}
 
 // File functions
 static void full_clear(void) {
