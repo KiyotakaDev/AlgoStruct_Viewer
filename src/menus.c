@@ -16,7 +16,7 @@ menu *create_main_menu(void) {
 menu *create_algorithms_menu(void) {
   menu *_menu = create_menu(1, "Algorithms", ALGO_OPTS);
   add_option(_menu, 1, "Bubble Sort", exec_bubble_sort);
-  add_option(_menu, 2, "Selection Sort", NULL);
+  add_option(_menu, 2, "Selection Sort", exec_selection_sort);
   add_option(_menu, 3, "Merge Sort", NULL);
   add_option(_menu, 4, "Back", go_back);
   add_option(_menu, 0, "Exit", exit_app);
