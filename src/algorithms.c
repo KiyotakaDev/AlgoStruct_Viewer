@@ -9,7 +9,7 @@
 // File prototypes
 static void full_clear(void);
 static void wait_char(void);
-static void show_graph(int current, int sorted_up_to);
+static void show_graph(char *text, int current, int sorted_up_to);
 static void swap(int *a, int *b);
 
 // File variables
@@ -24,7 +24,7 @@ void exec_bubble_sort(int *_) {
     // Checks if column is ordered avoids re-checks with - i - 1
     for (int j = 0; j < arr_size - i; j++) {
       // Print graph
-      show_graph(j, arr_size - i);
+      show_graph("Bubble Sort", j, arr_size - i);
 
       if (cols_h[j] > cols_h[j + 1]) {
         swap(&cols_h[j], &cols_h[j + 1]);
@@ -36,6 +36,29 @@ void exec_bubble_sort(int *_) {
 
     if (!swaped)
       break;
+  }
+
+  wait_char();
+}
+
+void exec_selection_sort(int *_) {
+  // Iterate through every element
+  for (int i = 0; i < arr_size; i++) {
+    int max_index = i;
+    
+    // Iterate through unsorted
+    for (int j = i; j < arr_size; j++) {
+      show_graph("Selection Sort", j, arr_size - i);
+
+      if (cols_h[j] < cols_h[max_index]) {
+        max_index = j;
+      }
+
+      usleep(SORT_DELAY);
+    }
+
+    if (max_index != i)
+      swap(&cols_h[i], &cols_h[max_index]);
   }
 
   wait_char();
@@ -53,14 +76,12 @@ static void wait_char(void) {
   getchar();
 }
 
-static void show_graph(int current, int sorted_up_to) {
+static void show_graph(char *text, int current, int sorted_up_to) {
   full_clear();
-  printf("\n\tBubble sort\n\n");
-
+  printf("\n\t%s\n\n", text);
   // Print numbers
   printf("\t");
   for (int i = 0; i < arr_size; i++) {
-    // colorize(i, current, sorted_up_to);
     printf("%d  ", cols_h[i]);
   }
   printf("\n\n");
@@ -68,15 +89,10 @@ static void show_graph(int current, int sorted_up_to) {
   // For every number in array (row)
   for (int i = 0; i < arr_size; i++) {
     printf("\t");
-
-    // colorize(i, current, sorted_up_to);
-
     // Print symbol
     for (int j = 0; j < cols_h[i]; j++) {
       printf("#");
     }
-  
-    // Reset format
     printf("\n");
   }
 }
