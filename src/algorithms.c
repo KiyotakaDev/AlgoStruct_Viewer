@@ -12,6 +12,8 @@ static void wait_char(void);
 static void show_graph(char *text, int *arr, int current, int sorted_up_to);
 static void swap(int *a, int *b);
 static void copy_arr(int *copy);
+static void merge_sort(int *arr, int left, int right);
+static void merge(int *arr, int left, int mid, int right);
 
 // File variables
 static int cols_h_orig[] = {9, 6, 4, 8, 2, 7, 1, 5, 3};
@@ -75,7 +77,7 @@ void exec_merge_sort(int *_) {
   int cols_h[arr_size];
   copy_arr(cols_h);
 
-  show_graph("Merge Sort", cols_h, -1, -1);
+  merge_sort(cols_h, 0, arr_size - 1);
 
   wait_char();
 }
@@ -121,4 +123,64 @@ static void swap(int *a, int *b) {
 static void copy_arr(int *copy) {
   for (int i = 0; i < arr_size; i++)
     copy[i] = cols_h_orig[i];
+}
+
+static void merge_sort(int *arr, int left, int right) {
+  if (left < right) {
+    int mid = left + (right - left) / 2;
+
+    // Divide halves
+    merge_sort(arr, left, mid);
+    merge_sort(arr, mid + 1, right);
+
+    // Merge halves
+    merge(arr, left, mid, right);
+  }
+}
+
+static void merge(int *arr, int left, int mid, int right) {
+  int n1 = mid - left + 1; // Elements in first half
+  int n2 = right - mid;    // Elements in second half
+
+  int L[n1], R[n2];        // Temp arrays to store each half
+
+  // Copy data in temp variables
+  for (int i = 0; i < n1; i++)
+    L[i] = arr[left + i];
+  for (int i = 0; i < n2; i++)
+    R[i] = arr[mid + 1 + i];
+
+  // Iterate variables (i-L | j-R | k-arr)
+  int i = 0, j = 0, k = left;
+
+  // Merge arrays in a ordered one
+  while(i < n1 && j < n2) {
+    if (L[i] <= R[j]) {
+      arr[k] = L[i];
+      i++;
+    } else {
+      arr[k] = R[j];
+      j++;
+    }
+    show_graph("Merge Sort", arr, k, -1);
+    usleep(SORT_DELAY);
+    k++;
+  }
+
+  // Copy remaining items from L[]
+  while (i < n1) {
+    arr[k] = L[i];
+    i++;
+    k++;
+    show_graph("Merge Sort", arr, k, -1);
+    usleep(SORT_DELAY);
+  }
+  // Copy remaining items from R[]
+  while (j < n2) {
+    arr[k] = R[j];
+    j++;
+    k++;
+    show_graph("Merge Sort", arr, k, -1);
+    usleep(SORT_DELAY);
+  }
 }
