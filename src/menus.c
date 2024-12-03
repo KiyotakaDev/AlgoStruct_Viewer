@@ -1,8 +1,9 @@
-#include <stdlib.h>      // NULL
-#include "algorithms.h"  // App algorithms
-#include "appfuncs.h"    // Funcs exit_app
-#include "menuopts.h"    // Struct menu | Funcs create_menu, add_option
-#include "menus.h"       // Header prototypes
+#include <stdlib.h>       // NULL
+#include "algorithms.h"   // App algorithms
+#include "appfuncs.h"     // Funcs exit_app
+#include "datastructs.h"  // App data strucutres
+#include "menuopts.h"     // Struct menu | Funcs create_menu, add_option
+#include "menus.h"        // Header prototypes
 
 menu *create_main_menu(void) {
   menu *_menu = create_menu(0, "What do you want to view?", MAIN_OPTS);
@@ -26,7 +27,7 @@ menu *create_algorithms_menu(void) {
 
 menu *create_datastructs_menu(void) {
   menu *_menu = create_menu(2, "Data Structures", DATASTRUCTS_OPTS);
-  add_option(_menu, 1, "Linked Lists", NULL);
+  add_option(_menu, 1, "Linked Lists", show_linked_list);
   add_option(_menu, 2, "Trees", NULL);
   add_option(_menu, 3, "Dictionaries", NULL);
   add_option(_menu, 4, "Hash Tables", NULL);
