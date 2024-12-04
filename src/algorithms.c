@@ -4,7 +4,7 @@
 #include "apprenderer.h"  // Clear terminal
 #include "menuopts.h"     // Print title
 
-#define SORT_DELAY 320000
+#define SORT_DELAY 250000
 
 // File prototypes
 static void full_clear(void);
@@ -26,22 +26,16 @@ void exec_bubble_sort(int *_) {
 
   // Iterate through every column
   for (int i = 0; i < arr_size; i++) {
-    int swaped = 0;
     // Checks if column is ordered avoids re-checks with - i - 1
-    for (int j = 0; j < arr_size - i; j++) {
+    for (int j = 0, av = arr_size - i - 1; j < av; j++) {
       // Print graph
-      show_graph("Bubble Sort", cols_h, j, arr_size - i);
+      show_graph("Bubble Sort", cols_h, j, av);
 
-      if (cols_h[j] > cols_h[j + 1]) {
+      if (cols_h[j] > cols_h[j + 1])
         swap(&cols_h[j], &cols_h[j + 1]);
-        swaped = 1;
-      }
 
-      usleep(SORT_DELAY); // 0.32 seg
+      usleep(SORT_DELAY);
     }
-
-    if (!swaped)
-      break;
   }
 
   wait_char();
