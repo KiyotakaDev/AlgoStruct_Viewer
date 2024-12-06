@@ -11,6 +11,12 @@ typedef struct node {
   struct node *next;
 } node;
 
+typedef struct tree {
+  int value;
+  struct tree *left;
+  struct tree *right;
+} tree;
+
 // File prototypes
 static void full_clear(void);
 static void wait_char(void);
@@ -18,9 +24,14 @@ static void wait_char(void);
 static node *build_linked_list(void);
 static void print_linked_list(node *list);
 static void free_linked_list(node *list);
+// Tree
+static tree *insert_node(tree *root, int value);
+static tree *build_tree(void);
+static void print_tree(tree *root, int spaces);
+static void free_tree(tree *root);
 
 // File variables
-static int num_arr[] = {30, 22, 17, 5, 1, 28, 14, 2};
+static int num_arr[] = {8, 4, 12, 2, 6, 10, 14, 1, 3};
 static int arr_size = sizeof(num_arr) / sizeof(num_arr[0]);
 
 
@@ -40,6 +51,76 @@ void show_linked_list(int *_) {
   wait_char();
 }
 
+void show_tree(int *_) {
+  // Build tree
+  tree *root = build_tree();
+
+  // Printer
+  full_clear();
+  printf("\n\tBinary Tree\n\n");
+  print_tree(root, 0);
+  printf("\n");
+
+  // Free memory
+  free_tree(root);
+
+  wait_char();
+}
+
+
+// Tree
+static void free_tree(tree *root) {
+  if (root == NULL) return;
+  free_tree(root->left);
+  free_tree(root->right);
+  free(root);
+}
+
+static void print_tree(tree *root, int spaces) {
+  int gap = 5;
+  if (root == NULL) return;
+
+  spaces += gap;
+
+  // Print right nodes
+  print_tree(root->right, spaces);
+
+  printf("\t");
+  for (int i = gap; i < spaces; i++)
+    printf(" ");
+
+  printf("%d\n", root->value);
+
+  // Print left nodes
+  print_tree(root->left, spaces);
+}
+
+static tree *build_tree(void) {
+  tree *root = NULL;
+  for (int i = 0; i < arr_size; i++) {
+    root = insert_node(root, num_arr[i]);
+  }
+  return root;
+}
+
+static tree *insert_node(tree *root, int value) {
+  if (root == NULL) {
+    tree *new_node = malloc(sizeof(tree));
+    if (new_node == NULL) return NULL;
+
+    new_node->value = value;
+    new_node->left = NULL;
+    new_node->right = NULL;
+    return new_node;
+  }
+
+  if (value < root->value)
+    root->left = insert_node(root->left, value);
+  else
+    root->right = insert_node(root->right, value);
+
+  return root;
+}
 
 // Linked list
 static void free_linked_list(node *list) {
