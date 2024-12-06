@@ -64,6 +64,8 @@ void show_linked_list(int *_) {
   wait_char();
 }
 
+void show_tree(int *_) {}
+
 
 // File functions
 static void full_clear(void) {
