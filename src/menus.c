@@ -28,7 +28,7 @@ menu *create_algorithms_menu(void) {
 menu *create_datastructs_menu(void) {
   menu *_menu = create_menu(2, "Data Structures", DATASTRUCTS_OPTS);
   add_option(_menu, 1, "Linked Lists", show_linked_list);
-  add_option(_menu, 2, "Trees", NULL);
+  add_option(_menu, 2, "Trees", show_tree);
   add_option(_menu, 3, "Dictionaries", NULL);
   add_option(_menu, 4, "Hash Tables", NULL);
   add_option(_menu, 5, "Back", go_back);
