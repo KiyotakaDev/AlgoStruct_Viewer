@@ -1,4 +1,5 @@
 #include <stdio.h>     // Func printf
+#include "ansi.h"      // ANSI colors
 #include "appfuncs.h"  // Header prototypes
 
 void goto_algorithms(int *menu_id) {
@@ -14,5 +15,5 @@ void go_back(int *menu_id) {
 }
 
 void exit_app(int *menu_id) {
-  printf("\tExiting program... Goodbye!\n\n");
+  printf(REVERSE BOLD"\tExiting program... Goodbye!\n\n"RESET);
 }

@@ -1,6 +1,7 @@
 #include <signal.h>       // Func signal | Type SIGINT
 #include <stdio.h>        // Func printf
 #include <stdlib.h>       // Func free
+#include "ansi.h"         // ANSI colors
 #include "apprenderer.h"  // Header prototypes
 #include "menuopts.h"     // Struct menu | Func free_memory
 #include "menus.h"        // Func menu_to_render 
@@ -20,7 +21,7 @@ void clear_terminal(void) {
 
 void handle_exit(int signo) {
   if (signo == SIGINT) {
-    printf("\n\tExiting program... Goodbye!\n\n");
+    printf(REVERSE BOLD"\n\tExiting program... Goodbye!\n\n"RESET);
     free_memory(renderer);
     exit(0);
   }
@@ -34,13 +35,13 @@ void app_renderer(int *current_menu, int *u_opt) {
   signal(SIGINT, handle_exit);
 
   // Print menu
-  printf("\t%s\n", renderer->title);
+  printf(UNDER BOLD"\t%s\n"RESET, renderer->title);
   if (renderer->id != ERROR_NUM) {
     for (int i = 1; i < renderer->opts_num; i++) {
-      printf("\t(%d). %s\n", renderer->options[i]->index, renderer->options[i]->option);
+      printf(GREEN"\t(%d).%s %s\n", renderer->options[i]->index, RESET, renderer->options[i]->option);
     }
     // Print exit at last
-    printf("\t(%d). %s\n", renderer->options[0]->index, renderer->options[0]->option);
+    printf(PURPLE"\t(%d).%s %s\n", renderer->options[0]->index, RESET, renderer->options[0]->option);
   } else {
     free(renderer->options);
     free(renderer);

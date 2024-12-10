@@ -1,6 +1,7 @@
 #include <stdio.h>        // Func printf
 #include <unistd.h>       // Func usleep
 #include "algorithms.h"   // Header prototypes
+#include "ansi.h"         // ANSI colors
 #include "apprenderer.h"  // Clear terminal
 #include "menuopts.h"     // Print title
 
@@ -9,11 +10,12 @@
 // File prototypes
 static void full_clear(void);
 static void wait_char(void);
-static void show_graph(char *text, int *arr, int current, int sorted_up_to);
+static void show_graph(char *text, int *arr, int current);
 static void swap(int *a, int *b);
 static void copy_arr(int *copy);
 static void merge_sort(int *arr, int left, int right);
 static void merge(int *arr, int left, int mid, int right);
+static void colorize(int index, int current);
 
 // File variables
 static int cols_h_orig[] = {9, 6, 4, 8, 2, 7, 1, 5, 3};
@@ -29,7 +31,7 @@ void exec_bubble_sort(int *_) {
     // Checks if column is ordered avoids re-checks with - i - 1
     for (int j = 0, av = arr_size - i - 1; j < av; j++) {
       // Print graph
-      show_graph("Bubble Sort", cols_h, j, av);
+      show_graph("Bubble Sort", cols_h, j);
 
       if (cols_h[j] > cols_h[j + 1])
         swap(&cols_h[j], &cols_h[j + 1]);
@@ -51,7 +53,7 @@ void exec_selection_sort(int *_) {
     
     // Iterate through unsorted
     for (int j = i; j < arr_size; j++) {
-      show_graph("Selection Sort", cols_h, j, arr_size - i);
+      show_graph("Selection Sort", cols_h, j);
 
       if (cols_h[j] < cols_h[max_index]) {
         max_index = j;
@@ -87,31 +89,43 @@ static void wait_char(void) {
   getchar();
 }
 
-static void show_graph(char *text, int *arr, int current, int sorted_up_to) {
+static void show_graph(char *text, int *arr, int current) {
   full_clear();
-  printf("\n\t%s\n\n", text);
+  printf(UNDER BOLD"\n\t%s\n\n"RESET, text);
+
   // Print numbers
   printf("\t");
   for (int i = 0; i < arr_size; i++) {
+    colorize(i, current);
     printf("%d  ", arr[i]);
+    printf(RESET);
   }
   printf("\n\n");
+  printf(RESET);
 
   // For every number in array (row)
   for (int i = 0; i < arr_size; i++) {
     printf("\t");
+    colorize(i, current);
     // Print symbol
     for (int j = 0; j < arr[i]; j++) {
       printf("#");
     }
-    printf("\n");
+    printf(RESET"\n");
   }
+  printf(RESET);
 }
 
 static void swap(int *a, int *b) {
   int temp = *a;
   *a = *b;
   *b = temp;
+}
+
+static void colorize(int index, int current) {
+    // Colorize
+    if (index == current)
+      printf(BOLD CYAN);
 }
 
 static void copy_arr(int *copy) {
@@ -156,7 +170,7 @@ static void merge(int *arr, int left, int mid, int right) {
       arr[k] = R[j];
       j++;
     }
-    show_graph("Merge Sort", arr, k, -1);
+    show_graph("Merge Sort", arr, k);
     usleep(SORT_DELAY);
     k++;
   }
@@ -166,7 +180,7 @@ static void merge(int *arr, int left, int mid, int right) {
     arr[k] = L[i];
     i++;
     k++;
-    show_graph("Merge Sort", arr, k, -1);
+    show_graph("Merge Sort", arr, k);
     usleep(SORT_DELAY);
   }
   // Copy remaining items from R[]
@@ -174,7 +188,7 @@ static void merge(int *arr, int left, int mid, int right) {
     arr[k] = R[j];
     j++;
     k++;
-    show_graph("Merge Sort", arr, k, -1);
+    show_graph("Merge Sort", arr, k);
     usleep(SORT_DELAY);
   }
 }
