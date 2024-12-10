@@ -1,9 +1,12 @@
 #include <stdio.h>        // Func printf
 #include <stdlib.h>       // Func free | Type NULL
 #include <unistd.h>       // Func usleep
+#include <ansi.h>         // ANSI colors
 #include "apprenderer.h"  // Clear terminal
 #include "datastructs.h"  // Header prototypes
 #include "menuopts.h"     // Print title
+
+#define DELAY 350000  // 350ms
 
 // Structs
 typedef struct node {
@@ -27,7 +30,7 @@ static void free_linked_list(node *list);
 // Tree
 static tree *insert_node(tree *root, int value);
 static tree *build_tree(void);
-static void print_tree(tree *root, int spaces);
+static void print_tree(tree *root, int spaces, char *format);
 static void free_tree(tree *root);
 
 // File variables
@@ -57,8 +60,11 @@ void show_tree(int *_) {
 
   // Printer
   full_clear();
-  printf("\n\tBinary Tree\n\n");
-  print_tree(root, 0);
+  printf(BOLD UNDER"\n\tBinary Tree\n\n"RESET);
+  printf(CYAN"\t\t[RIGHT]\n"RESET);
+  printf(PURPLE"\t[HEAD]\n"RESET);
+  printf(GREEN"\t\t[LEFT]\n\n"RESET);
+  print_tree(root, 0, PURPLE);
   printf("\n");
 
   // Free memory
@@ -76,23 +82,23 @@ static void free_tree(tree *root) {
   free(root);
 }
 
-static void print_tree(tree *root, int spaces) {
+static void print_tree(tree *root, int spaces, char *format) {
   int gap = 5;
   if (root == NULL) return;
 
   spaces += gap;
 
   // Print right nodes
-  print_tree(root->right, spaces);
+  print_tree(root->right, spaces, CYAN);
 
   printf("\t");
   for (int i = gap; i < spaces; i++)
     printf(" ");
 
-  printf("%d\n", root->value);
+  printf("%s%d\n"RESET, format, root->value);
 
   // Print left nodes
-  print_tree(root->left, spaces);
+  print_tree(root->left, spaces, GREEN);
 }
 
 static tree *build_tree(void) {
@@ -132,8 +138,9 @@ static void free_linked_list(node *list) {
 }
 
 static void print_linked_list(node *list) {
-  printf("\n\tLinked List\n");
-  printf("\n\tNode Address, Node Value, Next Node\n");
+  printf(BOLD UNDER"\n\tLinked List\n" RESET);
+  printf("\n\t%s[ADDRESS]%s[VALUE]%s[NEXT]%s\n",
+         GREEN, PURPLE, CYAN, RESET);
   printf("\n\t");
   node *ptr = list;
   // Print node address, node value, next node
@@ -145,10 +152,12 @@ static void print_linked_list(node *list) {
     unsigned int ldp = addr_p % 0x1000;
 
     // Table
-    printf("[%03x]", ld);
-    printf("[:%d]", ptr->value);
-    printf("[%03x] -> ", ldp);
+    printf(GREEN"[%03x]", ld);
+    printf(PURPLE"[:%d]", ptr->value);
+    printf(CYAN"[%03x] -> "RESET, ldp);
+    fflush(stdout);
     ptr = ptr->next;
+    usleep(DELAY);
   }
   printf("NULL\n");
 }
@@ -183,6 +192,3 @@ static void full_clear(void) {
   clear_terminal();
   print_app_title();
 }
-
-
-
