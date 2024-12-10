@@ -6,7 +6,7 @@
 /* DEFINES */
 #define MAIN_OPTS 3
 #define ALGO_OPTS 5
-#define DATASTRUCTS_OPTS 6
+#define DATASTRUCTS_OPTS 4
 
 /* PROTOTYPES */
 menu *create_main_menu(void);
